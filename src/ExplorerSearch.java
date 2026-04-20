@@ -1,5 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.print.attribute.HashAttributeSet;
 
 public class ExplorerSearch {
 
@@ -32,6 +36,23 @@ public class ExplorerSearch {
         // Implement your method here!
         // Please also make more test cases
         // I STRONGLY RECOMMEND testing some helpers you might make too
+        int[] start =  reachableAreaHelperStartPoint(island);
+        System.out.println(start[0]);
+        System.out.println(start[1]);
+
+      
         return -1;
+    }
+
+    private static int[] reachableAreaHelperStartPoint (int[][] island){
+
+        for(int row = 0; row < island.length;row++){
+            for(int col = 0; col < island[row].length;col++){
+               if(island[row][col] == 0){
+                return new int[]{row,col};
+               }
+            }
+        }
+        throw new IllegalArgumentException("There is no starting point");
     }
 }
