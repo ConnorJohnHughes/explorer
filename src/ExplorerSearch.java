@@ -1,9 +1,11 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.print.attribute.HashAttributeSet;
+import java.util.HashSet;
+import java.util.List;
+
+import java.util.Set;
+
+
 
 public class ExplorerSearch {
 
@@ -40,10 +42,32 @@ public class ExplorerSearch {
         System.out.println("start row " + start[0]);
         System.out.println("start col " + start[1]);
         
-        
+        // List<int[]> validMove = validMoves(start, island);
+        // System.out.println(validMove);
+        boolean[][] visited = new boolean[island.length][island[0].length];
+        // int moves = reachable(start, island, 0, visited);
+        // System.out.println(moves);
+
 
       
-        return -1;
+        return reachable(start, island,  visited);
+    }
+
+    private static int reachable(int[] startingPoint, int[][] island, boolean[][] visited){
+        int currentRow = startingPoint[0];
+        int currentCol = startingPoint[1];
+        int moves = 0;
+
+        if(visited[currentRow][currentCol]) return 0;
+
+        visited[currentRow][currentCol] = true;
+
+        for(int[] neighbor : validMoves(startingPoint, island)){
+                int move = reachable(neighbor, island, visited);
+                moves += move;
+        }
+
+        return moves + 1;
     }
 
     private static int[] reachableAreaHelperStartPoint (int[][] island){
@@ -58,9 +82,9 @@ public class ExplorerSearch {
         throw new IllegalArgumentException("There is no starting point");
     }
 
-    private static int validMoves(int[] startPoint, int[][] island){
+    private static List<int[]> validMoves(int[] startPoint, int[][] island){
         List<int[]> possible = new ArrayList<>();
-        int moves = 0;
+        // int moves = 0;
         int startRow = startPoint[0];
         int startCol = startPoint[1];
 
@@ -103,6 +127,6 @@ public class ExplorerSearch {
 
 
 
-        return moves;
+        return possible;
     }
 }
