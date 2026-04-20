@@ -37,8 +37,10 @@ public class ExplorerSearch {
         // Please also make more test cases
         // I STRONGLY RECOMMEND testing some helpers you might make too
         int[] start =  reachableAreaHelperStartPoint(island);
-        System.out.println(start[0]);
-        System.out.println(start[1]);
+        System.out.println("start row " + start[0]);
+        System.out.println("start col " + start[1]);
+        
+        
 
       
         return -1;
@@ -54,5 +56,53 @@ public class ExplorerSearch {
             }
         }
         throw new IllegalArgumentException("There is no starting point");
+    }
+
+    private static int validMoves(int[] startPoint, int[][] island){
+        List<int[]> possible = new ArrayList<>();
+        int moves = 0;
+        int startRow = startPoint[0];
+        int startCol = startPoint[1];
+
+        // possible.add(new int[]{startRow, startCol});
+
+        // up
+        int newRow = startRow - 1;
+        int newCol = startCol;
+        if(newRow >= 0 && island[newRow][newCol] != 3 && island[newRow][newCol] != 2){
+            possible.add(new int[]{newRow, newCol});
+        }
+
+        //down
+        newRow = startRow + 1;
+        newCol = startCol;
+        if(newRow < island.length && island[newRow][newCol] != 3 && island[newRow][newCol] != 2){
+            possible.add(new int[]{newRow, newCol});
+        }
+
+        //right
+        newRow = startRow;
+        newCol = startCol + 1;
+        if(newCol < island[startRow].length && island[newRow][newCol] != 3 && island[newRow][newCol] != 2){
+            possible.add(new int[]{newRow, newCol});
+        }
+
+
+        //left
+        newRow = startRow;
+        newCol = startCol - 1;
+        if(newCol >= 0 && island[newRow][newCol] != 3 && island[newRow][newCol] != 2){
+            possible.add(new int[]{newRow, newCol});
+        }
+
+
+        //count moves
+        // for(int[] move : possible){
+        //     moves++;
+        // }
+
+
+
+        return moves;
     }
 }
